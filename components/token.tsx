@@ -3,7 +3,7 @@ import { bsc } from "viem/chains";
 import { Address, Chain } from "wagmi";
 import { BSC_UniV2Router_Address, ETH_UniV2Router_Address } from "../contract/Address";
 import { AmountsOut, ExecuteSwap } from "./UniV2Router";
-import { Allowance } from "./allowance";
+import { Allowance } from "./ERC20";
 import { TokenInfo } from "./tokenInfo";
 
 interface Props {
