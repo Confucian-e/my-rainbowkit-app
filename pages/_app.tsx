@@ -1,28 +1,19 @@
-import '../styles/globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import {
-  arbitrum,
-  goerli,
-  mainnet,
-  optimism,
-  polygon,
-  zora,
-} from 'wagmi/chains';
+import { mainnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { Alchemy_API_KEY } from '../secretKeys';
+import '../styles/globals.css';
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
+const { chains, publicClient } = configureChains(
+  [mainnet],
   [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    alchemyProvider({ apiKey: Alchemy_API_KEY }),
+    publicProvider()
   ],
-  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -35,7 +26,6 @@ const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
   publicClient,
-  webSocketPublicClient,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
