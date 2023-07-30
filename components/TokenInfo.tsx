@@ -1,10 +1,7 @@
 import { Address, useToken } from "wagmi"
+import { TokenInfoProps } from "../types"
 
-interface Props {
-    token: Address,
-}
-
-export function TokenInfo({ token }: Props) {
+function TokenInfo({ token }: TokenInfoProps) {
     const { data, isError, isLoading } = useToken({
         address: token
     })
@@ -16,3 +13,5 @@ export function TokenInfo({ token }: Props) {
         </div>
     )
 }
+
+export default TokenInfo
